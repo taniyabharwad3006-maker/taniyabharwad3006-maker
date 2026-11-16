@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trushna Bharwad — Portfolio</title>
+<meta name="description" content="Portfolio of Trushna Bharwad: data analytics, LLM sentiment research, and web projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a builder's logbook. Each build reads brief (the prompt) → what shipped → stack; the data career sits underneath as the foundation. */
+:root{
+  --bg:#f4f5f8;
+  --surface:#ffffff;
+  --ink:#141a2e;
+  --muted:#5b6378;
+  --line:#dde1ea;
+  --accent:#e2531a;
+  --accent-soft:#fde9df;
+  --code-bg:#1b2238;
+  --code-ink:#e6e9f2;
+  --good:#1f8a5b;
+  --font-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1322; --surface:#171c2f; --ink:#eef0f6; --muted:#9aa2b8; --line:#2a3149;
+    --accent:#ff7a45; --accent-soft:#3a2219; --code-bg:#0a0d18; --code-ink:#e6e9f2; --good:#4cc38a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1322; --surface:#171c2f; --ink:#eef0f6; --muted:#9aa2b8; --line:#2a3149;
+  --accent:#ff7a45; --accent-soft:#3a2219; --code-bg:#0a0d18; --code-ink:#e6e9f2; --good:#4cc38a;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.1;text-wrap:balance;margin:0}
+p{margin:0}
+
+/* nav */
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px 20px;padding:22px 0;flex-wrap:wrap}
+.logo{font-family:var(--font-mono);font-weight:500;font-size:15px;color:var(--ink);text-decoration:none}
+.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:18px;flex-wrap:wrap}
+.navlinks a{color:var(--muted);text-decoration:none;font-size:15px}
+.navlinks a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:40px 0 48px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.eyebrow{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.hero h1{font-size:clamp(38px,6vw,66px);font-weight:800;letter-spacing:-0.02em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{margin-top:20px;font-size:19px;color:var(--muted);max-width:34em}
+.cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--ink);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.terminal{background:var(--code-bg);color:var(--code-ink);border-radius:14px;padding:18px 20px;font-family:var(--font-mono);font-size:13.5px;line-height:1.75;box-shadow:0 20px 40px -24px rgba(20,26,46,.55);overflow-x:auto}
+.terminal .dots{display:flex;gap:6px;margin-bottom:12px}
+.terminal .dots i{width:10px;height:10px;border-radius:50%;background:#3a4363;display:block}
+.terminal .p{color:#ff9a6b}
+.terminal .c{color:#8a93ad}
+.terminal .ok{color:#6fdca4}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:56px}
+.stat{background:var(--surface);padding:20px}
+.stat .num{font-family:var(--font-display);font-weight:800;font-size:32px;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat .lbl{margin-top:8px;font-size:14px;color:var(--muted);line-height:1.4}
+
+/* section */
+section{padding:56px 0;border-top:1px solid var(--line)}
+.sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.sechead h2{font-size:clamp(28px,4vw,40px);font-weight:700}
+.sechead .count{font-family:var(--font-mono);font-size:14px;color:var(--muted)}
+.intro{color:var(--muted);max-width:40em;margin:-12px 0 28px}
+
+/* builds */
+.projects{display:grid;gap:22px}
+.project{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px 28px}
+.project .top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.project h3{font-size:27px;font-weight:700}
+.project .kind{color:var(--muted);font-size:15px;margin-top:6px}
+.status{font-family:var(--font-mono);font-size:12.5px;padding:5px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.status.live{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.label{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.prompt{background:var(--code-bg);color:var(--code-ink);font-family:var(--font-mono);font-size:13.5px;line-height:1.65;border-radius:10px;padding:14px 16px}
+.prompt::before{content:"› ";color:#ff9a6b}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.project ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.project li::marker{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--font-mono);font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:4px 9px;color:var(--ink);background:var(--bg)}
+.pipeline{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--font-mono);font-size:12.5px}
+.pipeline span{padding:5px 9px;border-radius:6px;background:var(--bg);border:1px solid var(--line)}
+.pipeline b{color:var(--accent);font-weight:500}
+.scale{font-family:var(--font-mono);font-size:12.5px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;color:var(--muted)}
+.scale .bar{height:8px;border-radius:999px;background:linear-gradient(90deg,#d64545,#c9ccd6 50%,#2f9e6a)}
+.links{display:flex;gap:16px;flex-wrap:wrap;font-size:15px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{border-top:3px solid var(--ink);padding-top:14px}
+.step .n{font-family:var(--font-mono);font-size:13px;color:var(--accent)}
+.step h3{font-size:19px;margin:6px 0 8px}
+.step p{color:var(--muted);font-size:15px}
+
+/* data work */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.card .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.card h3{font-size:21px}
+.card p{color:var(--muted);font-size:15.5px}
+.card .res{border-top:1px dashed var(--line);padding-top:10px;font-size:15px}
+.card .res strong{font-family:var(--font-display);font-size:20px;color:var(--accent)}
+
+/* experience */
+.jobs{display:grid;gap:0}
+.job{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:20px 0;border-bottom:1px dashed var(--line)}
+.job:last-child{border-bottom:0}
+.job .when{font-family:var(--font-mono);font-size:13px;color:var(--accent);padding-top:4px}
+.job h3{font-size:20px}
+.job .org{color:var(--muted);font-size:15px;margin:2px 0 8px}
+.job ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15.5px}
+
+/* toolkit */
+.toolkit{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.tk h3{font-size:19px;margin-bottom:12px}
+.meter{display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:15px;align-items:center}
+.meter .lvl{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+
+/* about */
+.about{display:grid;grid-template-columns:1.1fr 1fr;gap:40px}
+.about .body p+p{margin-top:14px}
+.about .body{max-width:36em}
+.creds{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.creds li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:15.5px}
+.creds li::before{content:"✓";color:var(--good);font-weight:600}
+.creds a{color:var(--ink)}
+.subhead{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+.subhead:first-child{margin-top:0}
+
+/* contact */
+.contact{background:var(--code-bg);color:var(--code-ink);border-radius:18px;padding:36px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.contact h2{font-size:clamp(28px,4vw,40px)}
+.contact p{color:#aab2c8;margin-top:8px;max-width:30em}
+.contact .btn{border-color:var(--code-ink);color:var(--code-ink)}
+.contact .btn.primary{background:#ff7a45;border-color:#ff7a45;color:#141a2e}
+.contact .addr{font-family:var(--font-mono);font-size:13px;color:#aab2c8;margin-top:10px;overflow-wrap:anywhere}
+footer{padding:28px 0 48px;color:var(--muted);font-size:14px;font-family:var(--font-mono);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero,.project,.about,.grid2{grid-template-columns:1fr}
+  .toolkit{grid-template-columns:1fr}
+  .steps,.stats{grid-template-columns:1fr 1fr}
+  .job{grid-template-columns:1fr;gap:4px}
+}
+@media (max-width:440px){
+  .steps{grid-template-columns:1fr}
+  .project,.contact{padding:22px}
+}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#top">trushna<span>.bharwad</span></a>
+    <div class="navlinks">
+      <a href="#builds">Projects</a>
+      <a href="#how">How I work</a>
+      <a href="#data">Data work</a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a href="https://claude.ai/artifact/Q1cg5XRaNM57rdseYhQn1N">CV</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <p class="eyebrow">Trushna "Tania" Bharwad · Springfield, IL</p>
+      <h1>Data analyst turning questions into <em>evidence</em>.</h1>
+      <p class="lede">I turn business questions into SQL analysis, dashboards and predictive models. I am now researching how reliably large language models score financial news sentiment, and building my Python and web development skills along the way.</p>
+      <div class="cta">
+        <a class="btn primary" href="#builds">See my projects</a>
+        <a class="btn" href="https://claude.ai/artifact/Q1cg5XRaNM57rdseYhQn1N">View my CV ↗</a>
+      </div>
+    </div>
+    <div class="terminal" aria-label="Current research snapshot">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div><span class="c"># current research</span></div>
+      <div><span class="p">question</span>  Can LLMs score news sentiment reliably?</div>
+      <div><span class="p">tickers</span>   NFLX · WMT</div>
+      <div><span class="p">models</span>    ChatGPT · Claude</div>
+      <div><span class="p">baseline</span>  Alpha Vantage</div>
+      <div><span class="ok">status    in progress · for publication</span></div>
+    </div>
+  </header>
+
+  <div class="stats" role="list" aria-label="Highlights">
+    <div class="stat" role="listitem"><div class="num">~15%</div><div class="lbl">Better reporting accuracy through data validation</div></div>
+    <div class="stat" role="listitem"><div class="num">90.8%</div><div class="lbl">Accuracy, award-winning diabetes prediction model</div></div>
+    <div class="stat" role="listitem"><div class="num">10,000+</div><div class="lbl">Workforce records analyzed at Pure Bliss Staffing</div></div>
+    <div class="stat" role="listitem"><div class="num">~25%</div><div class="lbl">Faster reporting turnaround from my SQL + BI work</div></div>
+  </div>
+
+  <section id="builds">
+    <div class="sechead"><h2>Projects</h2><span class="count">current work · 2026</span></div>
+    <p class="intro">Current research and development work, each with the question it set out to answer.</p>
+    <div class="projects">
+
+      <article class="project">
+        <div class="top">
+          <div>
+            <h3>LLM vs. market-data sentiment scoring</h3>
+            <p class="kind">Research project · with Prof. Te-Wei Wang, UIS Department of MIS</p>
+          </div>
+          <span class="status">In progress · for publication</span>
+        </div>
+        <div class="col">
+          <div>
+            <div class="label">The goal</div>
+            <p class="prompt">Test whether ChatGPT and Claude score financial news sentiment as reliably as Alpha Vantage, using Netflix and Walmart news.</p>
+          </div>
+          <div>
+            <div class="label">Pipeline</div>
+            <div class="pipeline">
+              <span>Alpha Vantage news</span><b>→</b><span>NFLX · WMT</span><b>→</b><span>ChatGPT + Claude scores</span><b>→</b><span>compare</span>
+            </div>
+          </div>
+          <div>
+            <div class="label">Scoring scale</div>
+            <div class="scale"><span>−1 bearish</span><span class="bar" aria-hidden="true"></span><span>+1 bullish</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <div class="label">What it does</div>
+            <ul>
+              <li>Uses Alpha Vantage's overall sentiment, ticker sentiment and relevance scores as the baseline.</li>
+              <li>Has ChatGPT and Claude score the same news summaries, overall and per ticker (aspect-based).</li>
+              <li>Re-runs the scoring twice a week to test whether each model gives consistent answers over time.</li>
+            </ul>
+          </div>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Alpha Vantage API</span><span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">Excel</span><span class="chip">Aspect-based sentiment</span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="top">
+          <div>
+            <h3>TB — online store website</h3>
+            <p class="kind">Practice build · front-end web development</p>
+          </div>
+          <span class="status">In progress</span>
+        </div>
+        <div class="col">
+          <div>
+            <div class="label">The goal</div>
+            <p class="prompt">Build an online liquor store site called TB to learn how a real storefront is put together.</p>
+          </div>
+          <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span></div>
+        </div>
+        <div class="col">
+          <div>
+            <div class="label">What I'm learning</div>
+            <ul>
+              <li>Structuring pages with semantic HTML.</li>
+              <li>Laying out product grids and pages with CSS.</li>
+              <li>Adding interactivity with JavaScript.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+
+
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sechead"><h2>How I work</h2></div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Define the question</h3><p>Turn a business or research need into a question the data can answer.</p></div>
+      <div class="step"><div class="n">02</div><h3>Prepare the data</h3><p>Extract, clean and validate it before any analysis starts.</p></div>
+      <div class="step"><div class="n">03</div><h3>Analyze</h3><p>Use SQL, models or statistics, whichever fits the question.</p></div>
+      <div class="step"><div class="n">04</div><h3>Validate and report</h3><p>Check results against a baseline, then present them as clear, decision-ready reports.</p></div>
+    </div>
+  </section>
+
+  <section id="data">
+    <div class="sechead"><h2>Data work</h2><span class="count">graduate projects</span></div>
+    <p class="intro">Coursework and applied projects in predictive modeling, process mining and enterprise systems.</p>
+    <div class="grid2">
+      <article class="card">
+        <span class="k">Predictive modeling</span>
+        <h3>Early diabetes detection</h3>
+        <p>Compared regression models with a decision tree in SAS Enterprise Miner, with clustering and Tableau to explore the patterns.</p>
+        <p class="res"><strong>90.8%</strong> accuracy (decision tree, branch 3, depth 6). Won the <a href="https://drive.google.com/file/d/1EBeeSUJVqLkgFcdOevJ15WvB_GmYBndw/view">UIS STARS Best Presentation Award</a>, Business, 2023–24.</p>
+      </article>
+      <article class="card">
+        <span class="k">Process improvement</span>
+        <h3>Business process mining</h3>
+        <p>Used Disco on event logs to find workflow bottlenecks and turn the evidence into recommendations.</p>
+        <p class="res">Graded <strong>A</strong>, alongside my UIS certificate in Business Process Management.</p>
+      </article>
+      <article class="card">
+        <span class="k">Enterprise systems</span>
+        <h3>SAP end-to-end implementation</h3>
+        <p>Ran sales, procurement and logistics workflows in SAP GUI to see how the modules connect.</p>
+        <p class="res"><strong>3</strong> integrated modules: MM, SD and PP.</p>
+      </article>
+      <article class="card">
+        <span class="k">Research training</span>
+        <h3>Research proposal: analytics in banking</h3>
+        <p>Wrote the problem statement, literature review and design for MIS 577, proposing models for fraud detection, financial distress and customer segmentation.</p>
+        <p class="res">The assignment that got me hooked on <strong>research</strong>.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sechead"><h2>Experience</h2></div>
+    <div class="jobs">
+      <div class="job">
+        <div class="when">May 2025 – Present</div>
+        <div>
+          <h3>Administrative Data Analyst</h3>
+          <p class="org">Pure Bliss Staffing Company · Springfield, IL</p>
+          <ul>
+            <li>Cut reporting turnaround by about 25% with SQL analysis and Power BI dashboards.</li>
+            <li>Analyzed 10,000+ workforce records to find placement delays and bottlenecks.</li>
+            <li>Improved reporting accuracy by about 15% through validation and root-cause analysis.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="job">
+        <div class="when">Jan – May 2025</div>
+        <div>
+          <h3>Data Analyst Intern</h3>
+          <p class="org">Pure Bliss Staffing Company · Springfield, IL</p>
+          <ul><li>Built recurring reports with SQL and Excel and maintained Power BI and Tableau dashboards.</li></ul>
+        </div>
+      </div>
+      <div class="job">
+        <div class="when">Aug 2024 – May 2025</div>
+        <div>
+          <h3>Front Desk Lead</h3>
+          <p class="org">University of Illinois Springfield, Student Union</p>
+          <ul><li>Led front-desk operations and training, coordinating 200+ interactions a week.</li></ul>
+        </div>
+      </div>
+      <div class="job">
+        <div class="when">2021 – 2023</div>
+        <div>
+          <h3>Accounting Administrator · Process Analyst</h3>
+          <p class="org">S &amp; U Incense Industries LLP · Madhura's Cafe · Ahmedabad, India</p>
+          <ul><li>Kept financial records, built Excel dashboards and analyzed workflow and sales data.</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="toolkit">
+    <div class="sechead"><h2>Toolkit</h2></div>
+    <div class="toolkit">
+      <div class="tk"><h3>Programming &amp; AI</h3>
+        <div class="meter">
+          <span>Python</span><span class="lvl">learning</span>
+          <span>LLMs (ChatGPT, Claude)</span><span class="lvl">research</span>
+          <span>HTML &amp; CSS</span><span class="lvl">learning</span>
+          <span>JavaScript</span><span class="lvl">learning</span>
+        </div>
+      </div>
+      <div class="tk"><h3>Analytics &amp; BI</h3>
+        <div class="meter">
+          <span>SQL</span><span class="lvl">work</span>
+          <span>Power BI</span><span class="lvl">work</span>
+          <span>Tableau</span><span class="lvl">work</span>
+          <span>Excel</span><span class="lvl">work</span>
+          <span>SAS Enterprise Miner</span><span class="lvl">projects</span>
+        </div>
+      </div>
+      <div class="tk"><h3>Methods</h3>
+        <div class="meter">
+          <span>Sentiment analysis</span><span class="lvl">research</span>
+          <span>Predictive modeling</span><span class="lvl">projects</span>
+          <span>Process mining (Disco)</span><span class="lvl">projects</span>
+          <span>Statistics</span><span class="lvl">former TA</span>
+          <span>Research design</span><span class="lvl">MIS 577</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sechead"><h2>About me</h2></div>
+    <div class="about">
+      <div class="body">
+        <p>I'm Trushna, though most people call me Tania. I hold an MS in Management Information Systems from the University of Illinois Springfield and a BCom from Gujarat University, where I was a statistics teaching assistant.</p>
+        <p>My research interests are artificial intelligence, computational social science and the ethics of data science, especially when and why people should trust AI-generated information.</p>
+        <p>I'm open to PhD opportunities, research collaborations and data roles.</p>
+      </div>
+      <div>
+        <p class="subhead">Education</p>
+        <ul class="creds">
+          <li>MS, Management Information Systems, UIS, 2025 (GPA 3.66)</li>
+          <li>Graduate certificates: Business Process Management; IT Project Management</li>
+          <li>BCom, Gujarat University, 2022</li>
+        </ul>
+        <p class="subhead">Credentials</p>
+        <ul class="creds">
+          <li><a href="https://www.credly.com/badges/9bb2389b-d3a7-4b0e-b0a6-ef22b960bf68/public_url">SAS Data Literacy Essentials</a></li>
+          <li><a href="https://www.credly.com/badges/c0c841fd-6c6d-4342-8afb-aae996e1f964/public_url">SAS Predictive Modeling Using Logistic Regression</a></li>
+          <li><a href="https://drive.google.com/file/d/1EA8hM7iETVMvA_bSokoKyqvgqsF1ZCZE/view">ARIS Business Process Analysis (Software AG)</a></li>
+          <li>Lean Six Sigma White Belt (CSSC)</li>
+          <li><a href="https://drive.google.com/file/d/1EBeeSUJVqLkgFcdOevJ15WvB_GmYBndw/view">UIS STARS Best Presentation Award, Business</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-top:0">
+    <div class="contact">
+      <div>
+        <h2>Let's work together.</h2>
+        <p>Open to data roles, research collaborations and PhD opportunities.</p>
+        <p class="addr">taniyabharwad3006@gmail.com</p>
+      </div>
+      <div class="cta" style="margin-top:0">
+        <a class="btn primary" href="mailto:taniyabharwad3006@gmail.com">Email me</a>
+        <a class="btn" href="https://claude.ai/artifact/Q1cg5XRaNM57rdseYhQn1N">CV ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/trushna-bharwad">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Trushna Bharwad</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+</div>
+</body>
+</html>
